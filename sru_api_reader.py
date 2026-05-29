@@ -38,13 +38,13 @@ def output_xml(found_variables):
             print("  Keine Schlagworte gefunden")
 
 
-# XML analysieren und Daten extrahieren
+# XML auswerten
 def find_variables_xml(xml_dataset):
 
     # XML String in Baumstruktur umwandeln
     root = ET.fromstring(xml_dataset)
 
-    # Namespaces definieren
+    # Namespaces
     ns = {
         "zs": "http://www.loc.gov/zing/srw/",
         "mods": "http://www.loc.gov/mods/v3"
@@ -56,10 +56,10 @@ def find_variables_xml(xml_dataset):
     # Schleife über alle records
     for record in root.findall(".//zs:record", ns):
 
-        # MODS Block mit bibliographischen Daten suchen
+        # MODS enthält bibliographische Daten
         mods = record.find(".//mods:mods", ns)
 
-        # Falls kein MODS Block vorhanden ist -> nächsten Treffer nehmen
+        # Falls kein MODS Block vorhanden
         if mods is None:
             continue
 
@@ -115,7 +115,7 @@ def find_variables_xml(xml_dataset):
     return books
 
 
-# XML Daten von der SRU Schnittstelle laden
+# XML Daten laden
 def load_xml(base_url, params):
 
     # HTTP Anfrage senden
