@@ -148,7 +148,7 @@ def main():
 
     print("Willkommen zur Verfügbarkeitsprüfung der SLUB Göttingen")
 
-    print("\nHinweis: PPN muss 9 oder 10 Ziffern haben. Die letzte Ziffern kann ein 'X' sein")
+    print("\nHinweis: PPN muss insgesamt 9 oder 10 Zeichen/Ziffern haben. An der letzten Stelle darf eine Zahl, ein 'X' oder 'x' sein")
 
     # ISIL
     sigel_goettingen = "DE-7"
@@ -156,10 +156,14 @@ def main():
     # Eingabe
     ppn = input("Geben sie die gesuchte PPN ein:")
 
-    # nur Zahlen und richtige Länge erlauben
-    #if not ppn.isdigit() or len(ppn) not in (9, 10):
-    #    print("Fehler: PPN muss 9 oder 10 Ziffern haben.")
-    #    return
+    # nur Zahlen bzw. auf letzter Stelle 'X' oder 'x' und richtige Länge erlauben
+    if len(ppn) not in (9, 10):
+        print("Fehler: PPN ist falsch! Bitte beachte den vorherigen Hinweis!")
+        return
+        # Letzte Stelle darf Ziffer oder 'X', 'x' sein
+    if not ppn[:-1].isdigit() or not (ppn[-1].isdigit() or ppn[-1] == 'X' or ppn[-1] == 'x'):
+        print("Fehler: PPN ist falsch! Bitte beachte den vorherigen Hinweis!.")
+        return
 
     # URL und Parameter erstellen
     base_url, params = build_sru_url(ppn, sigel_goettingen)
